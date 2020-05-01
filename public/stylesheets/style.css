@@ -1,12 +1,14 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #164c18;
 }
-
+.container-fluid dd{
+  margin-bottom: 20px;
+}
 .sidebar-nav {
   margin-top: 20px;
   padding: 0;
@@ -16,6 +18,7 @@ a {
 .sidebar-nav li {
   margin: 10px 0;
 }
+
 
 .col-sm-10 li {
   margin: 10px 0;
