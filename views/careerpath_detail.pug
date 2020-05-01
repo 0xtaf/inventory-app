@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1 #{title}
+  
+  hr
+  h3 #{career.name}
+  p #{career.description}
+  h3 The #{career.name} skills we have in our MongoDB store:
+  dl
+    each item in skills
+      dt
+        a(href=item.url) #{item.name} 
+        dd #{item.description}
+        
+  
+
