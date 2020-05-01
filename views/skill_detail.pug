@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1 #{title}
+  
+  hr
+  h3 #{data.name}
+  p #{data.description}
+  p #[strong Category: #{data.career_path.name}]
+  br
+  br
+  h2 Quick! We have #{data.numInStock} chips left in our MongoDB store!
+  h2 The price is only #{data.price}$ just for you!
+  
+

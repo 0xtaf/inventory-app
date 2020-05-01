@@ -1,21 +1,22 @@
 const Skill = require('../models/skill');
 const CareerPath = require('../models/career_path');
 
-const async = require('async')
+const async = require('async');
 
 exports.index = function (req, res) {
   async.parallel(
     {
-      career_count: (callback)=>{
-        CareerPath.countDocuments({}, callback)
+      career_count: (callback) => {
+        CareerPath.countDocuments({}, callback);
       },
-      skill_count: (callback)=>{
-        Skill.countDocuments({}, callback)
-      }
+      skill_count: (callback) => {
+        Skill.countDocuments({}, callback);
+      },
     },
     (err, results) => {
       res.render('index', {
-        title: 'Buy the best skills you want from this marvellous career paths!',
+        title:
+          'Buy the best skills you want from this marvellous career paths!',
         error: err,
         data: results,
       });
@@ -24,32 +25,46 @@ exports.index = function (req, res) {
 };
 
 exports.skill_list = (req, res, next) => {
-  Skill.find({}, 'name description').populate('career_path').exec((err, results)=>{
-    if (err) {return next(err)}
-    res.render('skill_list', {title: 'All The Skills You Need Are Only One Click Away!', data:results})
-    console.log(results)
-  })
-}
+  Skill.find({}, 'name description')
+    .populate('career_path')
+    .exec((err, results) => {
+      if (err) {
+        return next(err);
+      }
+      res.render('skill_list', {
+        title: 'All The Skills You Need Are Only One Click Away!',
+        data: results,
+      });
+      console.log(results);
+    });
+};
 
-exports.skill_detail = (req,res) => {
-  res.send("skill detail "+ this._id)
-}
+exports.skill_detail = (req, res, next) => {
+  Skill.findById(req.params.id)
+    .populate('career_path')
+    .exec((err, results) => {
+      if (err) {
+        return next(err);
+      }
+      res.render('skill_detail', { title: 'Skill Detail Page', data: results });
+    });
+};
 
-exports.skill_create_get = (req, res) =>{
-  res.send('skill create get')
-}
-exports.skill_create_post = (req, res) =>{
-  res.send('skill create post')
-}
-exports.skill_delete_get = (req, res) =>{
-  res.send('skill delete get')
-}
-exports.skill_delete_post = (req, res) =>{
-  res.send('skill delete post')
-}
-exports.skill_update_get = (req, res) =>{
-  res.send('skill update get')
-}
-exports.skill_update_post = (req, res) =>{
-  res.send('skill update post')
-}
+exports.skill_create_get = (req, res) => {
+  res.send('skill create get');
+};
+exports.skill_create_post = (req, res) => {
+  res.send('skill create post');
+};
+exports.skill_delete_get = (req, res) => {
+  res.send('skill delete get');
+};
+exports.skill_delete_post = (req, res) => {
+  res.send('skill delete post');
+};
+exports.skill_update_get = (req, res) => {
+  res.send('skill update get');
+};
+exports.skill_update_post = (req, res) => {
+  res.send('skill update post');
+};
