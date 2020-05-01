@@ -12,4 +12,12 @@ block content
   h2 Quick! We have #{data.numInStock} chips left in our MongoDB store!
   h2 The price is only #{data.price}$ just for you!
   
+  hr
+  p
+    a(href=data.url+"/buy")  Buy Now!
 
+  hr
+  p
+    a(href=data.url+"/update")  Update The Record
+    |&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp 
+    a(href=data.url+"/delete")  Delete The Record 
