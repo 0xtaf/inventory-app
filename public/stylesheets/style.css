@@ -4,5 +4,19 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #164c18;
+}
+
+.sidebar-nav {
+  margin-top: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-nav li {
+  margin: 10px 0;
+}
+
+.col-sm-10 li {
+  margin: 10px 0;
 }

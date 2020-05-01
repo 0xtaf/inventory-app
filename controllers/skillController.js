@@ -1,4 +1,27 @@
 const Skill = require('../models/skill');
+const CareerPath = require('../models/career_path');
+
+const async = require('async')
+
+exports.index = function (req, res) {
+  async.parallel(
+    {
+      career_count: (callback)=>{
+        CareerPath.countDocuments({}, callback)
+      },
+      skill_count: (callback)=>{
+        Skill.countDocuments({}, callback)
+      }
+    },
+    (err, results) => {
+      res.render('index', {
+        title: 'Buy the best skills you want from this marvellous career paths!',
+        error: err,
+        data: results,
+      });
+    }
+  );
+};
 
 exports.skill_list = (req, res) => {
   res.send(" skill list will be implemented ")

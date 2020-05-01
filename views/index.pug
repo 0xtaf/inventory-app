@@ -2,4 +2,18 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  h2 Welcome to #[em Matrix Store], an Express website with MongoDB!
+
+  h1 Store content
+
+  if error
+    p Error getting store content.
+  else
+    p The Store has the following record counts:
+
+    ul
+      li #[strong Career Paths:] !{data.career_count}
+      li #[strong Skills:] !{data.skill_count}
+  
+  
+

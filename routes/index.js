@@ -6,9 +6,7 @@ const careerpath_controller = require('../controllers/careerPathControllers');
 const skill_controller = require('../controllers/skillController');
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'sa' });
-});
+router.get('/', skill_controller.index)
 
 
 //careerpath routes
