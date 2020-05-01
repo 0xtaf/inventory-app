@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1 #{title}
+  
+  dl
+    each item in data
+      dt
+        a(href=item.url) #{item.name} / #{item.career_path.name}
+        dd #{item.description}
+        
+  
+

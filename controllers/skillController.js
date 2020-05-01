@@ -23,8 +23,12 @@ exports.index = function (req, res) {
   );
 };
 
-exports.skill_list = (req, res) => {
-  res.send(" skill list will be implemented ")
+exports.skill_list = (req, res, next) => {
+  Skill.find({}, 'name description').populate('career_path').exec((err, results)=>{
+    if (err) {return next(err)}
+    res.render('skill_list', {title: 'All The Skills You Need Are Only One Click Away!', data:results})
+    console.log(results)
+  })
 }
 
 exports.skill_detail = (req,res) => {
