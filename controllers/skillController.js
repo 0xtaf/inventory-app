@@ -50,8 +50,11 @@ exports.skill_detail = (req, res, next) => {
     });
 };
 
-exports.skill_create_get = (req, res) => {
-  res.send('skill create get');
+exports.skill_create_get = (req, res, next) => {
+  CareerPath.find({}, 'name').exec((err, results)=>{
+    if (err) {return next(err)}
+    res.render('skill_form', {title: "New Skill Create Form", data:results})
+  })
 };
 exports.skill_create_post = (req, res) => {
   res.send('skill create post');
