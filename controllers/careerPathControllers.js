@@ -36,8 +36,11 @@ exports.careerpath_create_post = (req, res) => {
   res.send('careerpath create post');
 };
 
-exports.careerpath_update_get = (req, res) => {
-  res.send('careerpath update get');
+exports.careerpath_update_get = (req, res, next) => {
+  CareerPath.findById(req.params.id).exec((err,results)=>{
+    if (err){return next(err)}
+    res.render('careerpath_form', {title: 'Update The Path', data:results})
+  })
 };
 exports.careerpath_update_post = (req, res) => {
   res.send('careerpath update post');
