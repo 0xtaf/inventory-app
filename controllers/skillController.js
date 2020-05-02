@@ -142,14 +142,63 @@ exports.skill_update_get = (req, res, next) => {
       res.render('skill_form', {
         title: 'update the skill',
         skill: results.skill,
-        careerPaths: results.careerPaths,
+        careerPath: results.careerPaths,
       });
     }
   );
 };
-exports.skill_update_post = (req, res) => {
-  res.send('skill update post');
-};
+exports.skill_update_post = [
+  //validate
+  body('name', 'name must be specified').trim().isLength({ min: 1 }),
+  body('description', 'description must be specified')
+    .trim()
+    .isLength({ min: 2 }),
+  body('career_path', 'career path must be between 0 and 10000')
+    .trim()
+    .isLength({ min: 1 }),
+  body('price', 'price must be specified').trim().isInt({ gt: 0, lt: 10000 }),
+  body('numInStock', 'stock number must be between 0 and 1000')
+    .trim()
+    .isInt({ gt: 0, lt: 1000 }),
+
+  sanitizeBody('*').escape(),
+
+  (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    // Create a Book object with escaped and trimmed data.
+    var skill = new Skill({
+      name: req.body.name,
+      description: req.body.description,
+      career_path: req.body.career_path,
+      price: req.body.price,
+      numInStock: req.body.numInStock,
+      _id: req.params.id,
+    });
+    
+    if (!errors.isEmpty()) {
+      CareerPath.find({}).exec((err, results) => {
+        if (err) {
+          return next(err);
+        }
+        
+        res.render('skill_form', {
+          title: 'New Skill Create Form Again',
+          careerPath: results,
+          skill: skill,
+          errors: errors.array()
+        });
+      });
+      return;
+    } else {
+      Skill.findByIdAndUpdate(req.params.id, skill, {}, (err, theskill)=>{
+        if (err){return next(err)}
+        res.redirect(skill.url);
+      })
+    }
+  },
+]
 exports.skill_buy_get = (req, res, next) => {
   Skill.findById(req.params.id).exec((err, results) => {
     if (err) {
