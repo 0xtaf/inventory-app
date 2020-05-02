@@ -1,0 +1,15 @@
+extends layout
+
+block content
+
+  h2 #{title}
+
+  h3 Available Chips: #{data.numInStock} piece(s)
+  h3 The Price: #{data.price} $
+  hr
+  h3 How many chips do you want to get?
+  form(method="POST" action="")
+    .form-group
+      input#price.form-control(type="number" min=1 max= data.numInStock name="price" placeholder="2" required=true )
+  
+    button.btn.btn-primary(type='submit') Buy!  

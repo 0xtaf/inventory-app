@@ -71,8 +71,12 @@ exports.skill_update_get = (req, res) => {
 exports.skill_update_post = (req, res) => {
   res.send('skill update post');
 };
-exports.skill_buy_get = (req, res) => {
-  res.send('skill buy get');
+exports.skill_buy_get = (req, res, next) => {
+  Skill.findById(req.params.id).exec((err, results) =>{
+    if (err) {return next(err)}
+    res.render('skill_buy_form', {title: "Buy "+results.name+" Chip Now!", data:results})
+  })
+  
 };
 exports.skill_buy_post = (req, res) => {
   res.send('skill buy post');
