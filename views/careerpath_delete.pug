@@ -3,9 +3,24 @@ extends layout
 block content
 
   h1 #{title}
-  h3 Are you sure to delete this career from MongoDB store?
+  
+  if skills.length
 
-  form(method='POST' action='')
-      .form-group
-        input#careerpathid.form-control(type='hidden',name='careerpathid',required=true,value=career._id)
-      button.btn.btn-primary(type='submit') Delete
+    p #[strong Delete the following skills before attempting to delete this category.]
+
+    div(style='margin-left:20px;margin-top:20px')
+
+      h3 Skills
+
+      dl
+        each skill in skills
+          dt 
+            a(href=skill.url) #{skill.name}
+          dd #{skill.description}
+  else 
+    h3 Are you sure to delete this career from MongoDB store?
+
+    form(method='POST' action='')
+        .form-group
+          input#careerpathid.form-control(type='hidden',name='careerpathid',required=true,value=career._id)
+        button.btn.btn-primary(type='submit') Delete
