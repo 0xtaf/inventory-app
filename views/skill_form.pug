@@ -7,20 +7,28 @@ block content
   form(method="POST" action="")
     div.form-group
       label(for="name") Skill Name:
-      input#name.form-control(type="text" name="name" placeholder="Eslint, PostgreSQL etc..." required=true value=(data===undefined ? '' : data.name))
+      input#name.form-control(type="text" name="name" placeholder="Eslint, PostgreSQL etc..." required=true value=(skill===undefined ? '' : skill.name))
     div.form-group
       label(for="description") Description: 
-      input#description.form-control(type="textarea" name="description" placeholder="Details here..." required=true value=(data===undefined ? '' : data.description)) 
+      input#description.form-control(type="textarea" name="description" placeholder="Details here..." required=true value=(skill===undefined ? '' : skill.description)) 
     div.form-group
       label(for="careerPath") Related Career: 
       select#careerPath.form-control(type="select" placeholder="Select path" name="careerPath" required=true)
-        for item in data
-          option(value=item._id) #{item.name}
+        if (careerPaths)
+          for item in careerPaths
+            option(value=item._id selected=(item._id.toString()==skill.career_path._id.toString() ? 'selected' : false) ) #{item.name}
+        if (data)
+          for item in data
+            option(value=item._id) #{item.name}
+
+
+
+
     div.form-group
       label(for="price") Skill Price $:
-      input#price.form-control(type="number" min="0" name="price" placeholder="1299" required=true value=(data===undefined ? '' : data.price))
+      input#price.form-control(type="number" min="0" name="price" placeholder="1299" required=true value=(skill===undefined ? '' : skill.price))
     div.form-group
       label(for="count") Stock Available in MongoDB store:
-      input#count.form-control(type="number" min="1" name="count" placeholder="20" required=true value=(data===undefined ? '' : data.numInStock))
+      input#count.form-control(type="number" min="1" name="count" placeholder="20" required=true value=(skill===undefined ? '' : skill.numInStock))
    
     button.btn.btn-primary(type='submit') Submit  

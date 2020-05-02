@@ -75,8 +75,19 @@ exports.skill_delete_get = (req, res, next) => {
 exports.skill_delete_post = (req, res) => {
   res.send('skill delete post');
 };
-exports.skill_update_get = (req, res) => {
-  res.send('skill update get');
+exports.skill_update_get = (req, res, next) => {
+  async.parallel({
+    skill: (callback) =>{
+      Skill.findById(req.params.id).exec(callback)
+    },
+    careerPaths: (callback)=>{
+      CareerPath.find({}, 'name').exec(callback)
+    }
+  }, 
+  (err, results)=>{
+    if (err){return next(err)}
+    res.render('skill_form', {title: 'update the skill', skill:results.skill, careerPaths: results.careerPaths})
+  })
 };
 exports.skill_update_post = (req, res) => {
   res.send('skill update post');
