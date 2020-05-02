@@ -51,16 +51,26 @@ exports.skill_detail = (req, res, next) => {
 };
 
 exports.skill_create_get = (req, res, next) => {
-  CareerPath.find({}, 'name').exec((err, results)=>{
-    if (err) {return next(err)}
-    res.render('skill_form', {title: "New Skill Create Form", data:results})
-  })
+  CareerPath.find({}, 'name').exec((err, results) => {
+    if (err) {
+      return next(err);
+    }
+    res.render('skill_form', { title: 'New Skill Create Form', data: results });
+  });
 };
 exports.skill_create_post = (req, res) => {
   res.send('skill create post');
 };
-exports.skill_delete_get = (req, res) => {
-  res.send('skill delete get');
+exports.skill_delete_get = (req, res, next) => {
+  Skill.findById(req.params.id).exec((err, results) => {
+    if (err) {
+      return next(err);
+    }
+    res.render('skill_delete', {
+      title: 'Delete The ' + results.name + ' Skill',
+      data: results,
+    });
+  });
 };
 exports.skill_delete_post = (req, res) => {
   res.send('skill delete post');
@@ -72,11 +82,15 @@ exports.skill_update_post = (req, res) => {
   res.send('skill update post');
 };
 exports.skill_buy_get = (req, res, next) => {
-  Skill.findById(req.params.id).exec((err, results) =>{
-    if (err) {return next(err)}
-    res.render('skill_buy_form', {title: "Buy "+results.name+" Chip Now!", data:results})
-  })
-  
+  Skill.findById(req.params.id).exec((err, results) => {
+    if (err) {
+      return next(err);
+    }
+    res.render('skill_buy_form', {
+      title: 'Buy ' + results.name + ' Chip Now!',
+      data: results,
+    });
+  });
 };
 exports.skill_buy_post = (req, res) => {
   res.send('skill buy post');

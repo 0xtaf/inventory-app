@@ -1,0 +1,11 @@
+extends layout
+
+block content
+
+  h1 #{title}
+  h3 Are you sure to delete this skill from MongoDB store?
+
+  form(method='POST' action='')
+      .form-group
+        input#skillid.form-control(type='hidden',name='skillid',required=true,value=data._id)
+      button.btn.btn-primary(type='submit') Delete

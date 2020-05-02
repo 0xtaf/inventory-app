@@ -42,8 +42,23 @@ exports.careerpath_update_get = (req, res) => {
 exports.careerpath_update_post = (req, res) => {
   res.send('careerpath update post');
 };
-exports.careerpath_delete_get = (req, res) => {
-  res.send('careerpath delete get');
+exports.careerpath_delete_get = (req, res,next) => {
+  async.parallel({
+    career: (callback)=>{
+      CareerPath.findById(req.params.id).exec(callback)
+    },
+    skills: (callback)=>{
+      Skill.find({'career_path': req.params.id}).exec(callback)
+    }
+  },
+  (err, results)=>{
+    if (err){return next(err)}
+    if (results.career === null){
+      res.redirect('/career-paths')
+    } else {
+      res.render('careerpath_delete', {title: 'Delete '+results.career.name+' path', career:results.career, skills:results.skills })
+    }
+  }) 
 };
 exports.careerpath_delete_post = (req, res) => {
   res.send('careerpath delete post');

@@ -1,0 +1,11 @@
+extends layout
+
+block content
+
+  h1 #{title}
+  h3 Are you sure to delete this career from MongoDB store?
+
+  form(method='POST' action='')
+      .form-group
+        input#careerpathid.form-control(type='hidden',name='careerpathid',required=true,value=career._id)
+      button.btn.btn-primary(type='submit') Delete
