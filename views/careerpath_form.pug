@@ -1,0 +1,14 @@
+extends layout
+
+block content
+
+  h2 #{title}
+
+  form(method="POST" action="")
+    div.form-group
+      label(for="name") Road Name:
+      input#name.form-control(type="text" name="name" placeholder="Web Security, DevOps, etc..." required=true value=(data===undefined ? '' : data.name))
+    div.form-group
+      label(for="description") Description: 
+      input#description.form-control(type="textarea" name="description" placeholder="Details here..." required=true value=(data===undefined ? '' : data.description)) 
+    button.btn.btn-primary(type='submit') Submit  

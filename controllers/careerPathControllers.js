@@ -30,7 +30,7 @@ exports.careerpath_detail = (req, res, next) => {
   });
 };
 exports.careerpath_create_get = (req, res) => {
-  res.send('careerpath create get');
+  res.render('careerpath_form', {title: "New Career Path Create Form"})
 };
 exports.careerpath_create_post = (req, res) => {
   res.send('careerpath create post');
