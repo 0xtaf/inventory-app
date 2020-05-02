@@ -12,8 +12,12 @@ block content
     p The Store has the following record counts:
 
     ul
-      li #[strong Career Paths:] !{data.career_count}
-      li #[strong Skills:] !{data.skill_count}
+      li 
+        a(href=('/career-paths')) #[strong Career Paths:] 
+        |!{data.career_count}
+      li 
+        a(href=('/skills')) #[strong Skills:] 
+        |!{data.skill_count}
   
   
 
