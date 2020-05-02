@@ -10,6 +10,6 @@ block content
   h3 How many chips do you want to get?
   form(method="POST" action="")
     .form-group
-      input#price.form-control(type="number" min=1 max= data.numInStock name="price" placeholder="2" required=true )
-  
+      input#boughtNumber.form-control(type="number" min=1 max= data.numInStock name="boughtNumber" placeholder="2" required=true value=boughtNumber)
+      input#stockid.form-control(type='hidden',name='stockid',required=true,value=data.numInStock)
     button.btn.btn-primary(type='submit') Buy!  

@@ -122,8 +122,13 @@ exports.skill_delete_get = (req, res, next) => {
     });
   });
 };
-exports.skill_delete_post = (req, res) => {
-  res.send('skill delete post');
+exports.skill_delete_post = (req, res, next) => {
+  Skill.findByIdAndRemove(req.body.skillid, (err)=>{
+    if (err) {
+      return next(err)
+    }
+    res.redirect('/skills')
+  })
 };
 exports.skill_update_get = (req, res, next) => {
   async.parallel(
@@ -210,6 +215,11 @@ exports.skill_buy_get = (req, res, next) => {
     });
   });
 };
-exports.skill_buy_post = (req, res) => {
-  res.send('skill buy post');
+exports.skill_buy_post = (req, res, next) => {
+  const boughtNumber = req.body.boughtNumber
+  Skill.findByIdAndUpdate({_id: req.params.id}, {numInStock: req.body.stockid-boughtNumber}, {}, (err)=>{
+    if (err) {return next(err)}
+    res.redirect('/skill'+'/'+req.params.id)
+  })
+  // Skill.findByIdAndUpdate
 };
