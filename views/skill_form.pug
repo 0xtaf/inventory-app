@@ -13,12 +13,12 @@ block content
       input#description.form-control(type="textarea" name="description" placeholder="Details here..." required=true value=(skill===undefined ? '' : skill.description)) 
     div.form-group
       label(for="careerPath") Related Career: 
-      select#careerPath.form-control(type="select" placeholder="Select path" name="careerPath" required=true)
-        if (careerPaths)
-          for item in careerPaths
+      select#careerPath.form-control(type="select" placeholder="Select path" name="career_path" required=true)
+        
+        for item in careerPath
+          if (skill)
             option(value=item._id selected=(item._id.toString()==skill.career_path._id.toString() ? 'selected' : false) ) #{item.name}
-        if (data)
-          for item in data
+          else
             option(value=item._id) #{item.name}
 
 
@@ -29,6 +29,11 @@ block content
       input#price.form-control(type="number" min="0" name="price" placeholder="1299" required=true value=(skill===undefined ? '' : skill.price))
     div.form-group
       label(for="count") Stock Available in MongoDB store:
-      input#count.form-control(type="number" min="1" name="count" placeholder="20" required=true value=(skill===undefined ? '' : skill.numInStock))
+      input#numInStock.form-control(type="number" min="1" name="numInStock" placeholder="20" required=true value=(skill===undefined ? '' : skill.numInStock))
    
     button.btn.btn-primary(type='submit') Submit  
+
+  if errors 
+    ul
+      for error in errors
+       li!= error.msg
